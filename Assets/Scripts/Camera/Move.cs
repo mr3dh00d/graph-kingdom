@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,11 +6,16 @@ using UnityEngine;
 public class Move : MonoBehaviour
 {
     [SerializeField] float speed = 20;
+    Vector3 direction;
     void Update()
     {
-        float horizontal = Input.GetAxis("Horizontal") * speed * Time.deltaTime;
-        float vertical = Input.GetAxis("Vertical") * speed * Time.deltaTime;
+        float horizontal = Input.GetAxis("Horizontal");
+        float vertical = Input.GetAxis("Vertical");
 
-        transform.Translate(horizontal, vertical, 0f);
+        direction = new Vector3(horizontal, 0f, vertical);
+        if (direction.magnitude > 1f)
+            direction = direction.normalized;
+        direction *= speed * Time.deltaTime;
+        transform.Translate(direction);
     }
 }
