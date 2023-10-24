@@ -5,7 +5,7 @@ using UnityEngine;
 public class GameController : MonoBehaviour
 {
     public static GameController instance;
-    public bool DragMovementActive = false;
+    [SerializeField] public bool DragMovementActive = true;
 
     private void Awake()
     {
@@ -25,7 +25,7 @@ public class GameController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        Debug.Log(Cities.Brandys_nad.name);
     }
 
     // Update is called once per frame
