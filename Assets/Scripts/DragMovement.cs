@@ -9,8 +9,15 @@ public class DragMovement : MonoBehaviour
     private Camera _mainCamera;
     private bool _isDragging = false;
 
+    private bool _dragMovementActive;
+
     private void Awake() {
         _mainCamera = Camera.main;
+    }
+
+    private void Update()
+    {
+        _dragMovementActive = GameController.instance.DragMovementActive;
     }
 
     public void OnDrag(InputAction.CallbackContext context) {
@@ -20,7 +27,7 @@ public class DragMovement : MonoBehaviour
     }
 
     private void LateUpdate() {
-        if (_isDragging) {
+        if (_isDragging && _dragMovementActive) {
             _difference = GetMousePosition - transform.position;
             _newPosition = _origin - _difference;
             _newPosition.x = Mathf.Clamp(_newPosition.x, -100, 100);
