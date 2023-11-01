@@ -8,6 +8,7 @@ public class GameController : MonoBehaviour
     public static GameController instance;
     [SerializeField] public bool DragMovementActive = true;
     [SerializeField] public GameObject [] Merchants;
+    [SerializeField] public Cities cities; 
     private City location;
 
 
@@ -29,13 +30,13 @@ public class GameController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        location = Cities.Prague;
+        location = cities.Prague;
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        
     }
 
     public void CompileCommand(string command)
@@ -50,11 +51,10 @@ public class GameController : MonoBehaviour
         int merchant_encommendment = 0;
         int direction;
         Animator animator;
-        foreach (int neighbor in location.neighbors)
+        foreach (int neighbor in location.getNeighbors())
         {   
             animator = Merchants[merchant_encommendment].GetComponent<Animator>();
-            direction = int.Parse($"{location.id}{neighbor}");
-            Debug.Log("direction: " + direction);
+            direction = int.Parse($"{location.getId()}{neighbor}");
             animator.SetInteger("direction", direction);
             merchant_encommendment++;
         }
