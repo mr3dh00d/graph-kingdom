@@ -6,6 +6,7 @@ using UnityEngine;
 public class GameController : MonoBehaviour
 {
     public static GameController instance;
+    [SerializeField ]public FeedBackController feedBackController;
     [SerializeField] public bool DragMovementActive = true;
     [SerializeField] public GameObject [] Merchants;
     [SerializeField] public Cities cities; 
@@ -31,6 +32,7 @@ public class GameController : MonoBehaviour
     void Start()
     {
         location = cities.Prague;
+        feedBackController.LoadObjects();
     }
 
     // Update is called once per frame
@@ -39,13 +41,31 @@ public class GameController : MonoBehaviour
         
     }
 
-    public void CompileCommand(string command)
+    public void CompileInput(string input)
     {
-        Debug.Log($"Compiling command: {command}");
-        fetch();
+        // Normaliza el input
+        input = input.ToLower().Replace("\u200B", "").Trim();
+        if (input.Length == 0)
+        {
+            feedBackController.setBadMessage("No has ingresado ningún comando");
+            return;
+        }
+
+        string[] command_with_args = input.Split(' ');
+        string command = command_with_args[0];
+        switch (command)
+        {
+            case "fetch":
+                Fetch();
+                break;
+            default:
+                feedBackController.setBadMessage($"El comando \"{command}\" no existe");
+                break;
+        }        
+        
     }
 
-    private void fetch()
+    private void Fetch()
     {
         Debug.Log("Fetching");
         int merchant_encommendment = 0;
