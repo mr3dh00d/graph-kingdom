@@ -1,16 +1,18 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class GameController : MonoBehaviour
 {
     public static GameController instance;
-    [SerializeField ]public FeedBackController feedBackController;
+    [SerializeField] public FeedBackController feedBackController;
+    [SerializeField] public MatrizController matrizController;
+    [SerializeField] public CameraController cameraController;
+    [SerializeField] public PathsLabelsController pathsLabelsController;
     [SerializeField] public bool DragMovementActive = true;
     [SerializeField] public GameObject [] Merchants;
     [SerializeField] public Cities cities; 
     private City location;
+    int [][] pathsCosts;
 
 
     private void Awake()
@@ -31,8 +33,11 @@ public class GameController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        location = cities.Prague;
-        feedBackController.LoadObjects();
+        SetPathsCosts();
+        ChangeLocation(cities.Pribram);
+        location.title.color = ColorsConstants.HexToColor("#FFA500");
+        feedBackController.Load();
+        matrizController.Load();
     }
 
     // Update is called once per frame
@@ -41,13 +46,33 @@ public class GameController : MonoBehaviour
         
     }
 
+    private void SetPathsCosts() {
+
+        pathsCosts = new int[cities.getCities().Length][];
+        foreach (City city in cities.getCities())
+        {
+            pathsCosts[city.getId() - 1] = new int[cities.getCities().Length];
+            foreach (int neighbor in city.getNeighbors())
+            {
+                pathsCosts[city.getId() - 1][neighbor - 1] = UnityEngine.Random.Range(1, 10);
+            }
+        }
+    }
+
+    public void ChangeLocation(City city)
+    {
+        location = city;
+        city.title.color = Color.yellow;
+        cameraController.SetCameraPosition(city.getPosition());
+    }
+
     public void CompileInput(string input)
     {
         // Normaliza el input
         input = input.ToLower().Replace("\u200B", "").Trim();
         if (input.Length == 0)
         {
-            feedBackController.setBadMessage("No has ingresado ningún comando");
+            feedBackController.SetBadMessage("No has ingresado ningún comando");
             return;
         }
 
@@ -59,7 +84,7 @@ public class GameController : MonoBehaviour
                 Fetch();
                 break;
             default:
-                feedBackController.setBadMessage($"El comando \"{command}\" no existe");
+                feedBackController.SetBadMessage($"El comando \"{command}\" no existe");
                 break;
         }        
         
@@ -67,7 +92,6 @@ public class GameController : MonoBehaviour
 
     private void Fetch()
     {
-        Debug.Log("Fetching");
         int merchant_encommendment = 0;
         int direction;
         Animator animator;
@@ -76,7 +100,13 @@ public class GameController : MonoBehaviour
             animator = Merchants[merchant_encommendment].GetComponent<Animator>();
             direction = int.Parse($"{location.getId()}{neighbor}");
             animator.SetInteger("direction", direction);
+            pathsLabelsController.RevealCost(location.getId(), neighbor, pathsCosts[location.getId() - 1][neighbor - 1]);
             merchant_encommendment++;
         }
+    }
+
+    public City getLocation()
+    {
+        return location;
     }
 }

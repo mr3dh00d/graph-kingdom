@@ -1,11 +1,14 @@
 using System;
 using System.ComponentModel;
 using UnityEngine;
+using TMPro;
+using TMPro.EditorUtilities;
+[Serializable]
 public class City {
     [SerializeField] private string name;
     [SerializeField] private int id;
     [SerializeField] private int [] neighbors;
-    [SerializeField] public GameObject title;
+    [SerializeField] public TextMeshPro title;
     [SerializeField] public GameObject city;
 
     public City(string name, int id, int [] neighbors) {
@@ -24,6 +27,10 @@ public class City {
 
     public int [] getNeighbors() {
         return neighbors;
+    }
+
+    public Vector3 getPosition() {
+        return city.transform.position;
     }
 
 }

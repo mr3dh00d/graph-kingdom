@@ -4,28 +4,9 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-class ColorsConstants {
-    public readonly static string RED_BG = "#ffd5ce";
-    public readonly static string GREEN_BG = "#daffce";
-    public readonly static string RED_TEXT = "#ea4242";
-    public readonly static string GREEN_TEXT = "#5d8d0a";
-
-    public static Color HexToColor(string hex)
-    {
-        if (ColorUtility.TryParseHtmlString(hex, out Color color))
-        {
-            return color;
-        }
-        else
-        {
-            Debug.LogError("No se pudo convertir el valor hexadecimal a Color.");
-            return Color.white;
-        }
-    }
-
-}
-[Serializable] public class FeedBackController {
-
+[Serializable]
+public class FeedBackController
+{
     [SerializeField] public GameObject panel;
     [SerializeField] public Sprite important;
     [SerializeField] public Sprite check;
@@ -36,7 +17,7 @@ class ColorsConstants {
     private float fadeInAndOutDuration = 1f;
     private float visibleDuration = 5f;
 
-    public void LoadObjects()
+    public void Load()
     {
         background = panel.GetComponent<Image>();
         icon = panel.transform.Find("icon").gameObject.GetComponent<Image>();
@@ -46,7 +27,7 @@ class ColorsConstants {
         icon.color = new Color(icon.color.r, icon.color.g, icon.color.b, 0f);
     }
 
-    public void setGoodMessage(string message)
+    public void SetGoodMessage(string message)
     {
         background.color = ColorsConstants.HexToColor(ColorsConstants.GREEN_BG);
         icon.sprite = check;
@@ -55,7 +36,7 @@ class ColorsConstants {
         GameController.instance.StartCoroutine(MostrarPanelConFade());
     }
 
-    public void setBadMessage(string message)
+    public void SetBadMessage(string message)
     {
         background.color = ColorsConstants.HexToColor(ColorsConstants.RED_BG);
         icon.sprite = important;

@@ -37,8 +37,9 @@ public class DisplayWebcam : MonoBehaviour
         webcamTexture = new WebCamTexture(camName);
         rawImage.texture = webcamTexture;
         webcamTexture.Play();
-        Debug.Log("from Display " + webcamTexture.height + ", " + webcamTexture.width);
-        Debug.Log("from Display " + Screen.height + ", " + Screen.width);
+        // @todo activar logs
+        // Debug.Log("from Display " + webcamTexture.height + ", " + webcamTexture.width);
+        // Debug.Log("from Display " + Screen.height + ", " + Screen.width);
     }
 
     public WebCamTexture GetCamImage()

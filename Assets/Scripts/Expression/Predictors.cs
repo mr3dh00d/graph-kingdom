@@ -39,7 +39,8 @@ public class Predictors : MonoBehaviour
     {
 
         WebCamTexture webCamTexture = CameraView.GetCamImage();
-        Debug.Log("webcam height " + webCamTexture.height + ", webcam width " + webCamTexture.width);
+        // @todo activar logs
+        // Debug.Log("webcam height " + webCamTexture.height + ", webcam width " + webCamTexture.width);
 
         if (webCamTexture.didUpdateThisFrame && webCamTexture.width > 100)
         {
@@ -78,7 +79,8 @@ public class Predictors : MonoBehaviour
 
         //set UI text
         uiText.text = OutputLabels[index];
-        Debug.Log("La emocion es " + OutputLabels[index]);
+        // @todo activar logs
+        // Debug.Log("La emocion es " + OutputLabels[index]);
 
         //dispose tensors
         tensor.Dispose();
@@ -91,7 +93,8 @@ public class Predictors : MonoBehaviour
     Tensor TransformInput(byte[] pixels)
     {
         float[] singleChannel = new float[IMAGE_SIZE * IMAGE_SIZE];
-        Debug.Log("Tama�o del tensor " + singleChannel.Length);
+        // @todo activar logs
+        // Debug.Log("Tamaño del tensor " + singleChannel.Length);
         for (int i = 0; i < singleChannel.Length; i++)
         {
             Color color = new Color32(pixels[i * 3 + 0], pixels[i * 3 + 1], pixels[i * 3 + 2], 255);
