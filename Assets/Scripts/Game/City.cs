@@ -33,4 +33,8 @@ public class City {
         return city.transform.position;
     }
 
+    public bool isNeighbor(int id) {
+        return Array.IndexOf(neighbors, id) > -1;
+    }
+
 }

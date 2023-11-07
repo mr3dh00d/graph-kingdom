@@ -14,7 +14,7 @@ public class Cities : MonoBehaviour {
     [SerializeField] public City Kolin = new City("Kolin", 11, new int[] {10,12});
     [SerializeField] public City Kurim = new City("Kurim", 12, new int[] {10,11});
 
-    public City[] getCities() {
+    public City[] GetCities() {
         return new City[] {
             Prague,
             Beroun,
@@ -29,6 +29,28 @@ public class Cities : MonoBehaviour {
             Kolin,
             Kurim
         };
+    }
+
+    public City GetCityById(int id) {
+        foreach (City city in GetCities())
+        {
+            if (city.getId() == id) {
+                return city;
+            }
+        }
+        return null;
+    }
+
+    public City GetCityByName(string name) {
+        foreach (City city in GetCities())
+        {
+            if (
+                city.getName().ToLower() == name.ToLower()
+            ) {
+                return city;
+            }
+        }
+        return null;
     }
 
 

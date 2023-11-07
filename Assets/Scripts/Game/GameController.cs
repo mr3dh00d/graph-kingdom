@@ -48,13 +48,27 @@ public class GameController : MonoBehaviour
 
     private void SetPathsCosts() {
 
-        pathsCosts = new int[cities.getCities().Length][];
-        foreach (City city in cities.getCities())
+        pathsCosts = new int[cities.GetCities().Length][];
+        for (int i = 0; i < pathsCosts.Length; i++)
         {
-            pathsCosts[city.getId() - 1] = new int[cities.getCities().Length];
+            pathsCosts[i] = new int[cities.GetCities().Length];
+            for (int j = 0; j < pathsCosts[i].Length; j++)
+            {
+                pathsCosts[i][j] = -1;
+            }
+        }
+
+        foreach (City city in cities.GetCities())
+        {
             foreach (int neighbor in city.getNeighbors())
             {
-                pathsCosts[city.getId() - 1][neighbor - 1] = UnityEngine.Random.Range(1, 10);
+                if(pathsCosts[city.getId() - 1][neighbor - 1] == -1) {
+                    int cost = UnityEngine.Random.Range(1, 10);
+                    
+                    pathsCosts[city.getId() - 1][neighbor - 1] = cost;
+                    pathsCosts[neighbor - 1][city.getId() - 1] = cost;
+
+                }
             }
         }
     }
@@ -63,6 +77,7 @@ public class GameController : MonoBehaviour
     {
         location = city;
         city.title.color = Color.yellow;
+
         cameraController.SetCameraPosition(city.getPosition());
     }
 
@@ -78,8 +93,13 @@ public class GameController : MonoBehaviour
 
         string[] command_with_args = input.Split(' ');
         string command = command_with_args[0];
+        string[] args = new string[command_with_args.Length - 1];
+        Array.Copy(command_with_args, 1, args, 0, command_with_args.Length - 1);
         switch (command)
         {
+            case "visit":
+                Visit(args);
+                break;
             case "fetch":
                 Fetch();
                 break;
@@ -88,6 +108,29 @@ public class GameController : MonoBehaviour
                 break;
         }        
         
+    }
+
+    private void Visit(string[] args)
+    {
+        string neighbor = args[0].Trim();
+        if (neighbor == null || neighbor.Length == 0)
+        {
+            feedBackController.SetBadMessage("No has ingresado ninguna ciudad");
+            return;
+        }
+        City targetCity = cities.GetCityByName(neighbor);
+        if(targetCity == null) {
+            feedBackController.SetBadMessage($"La ciudad \"{neighbor}\" no existe");
+            return;
+        } else if (!location.isNeighbor(targetCity.getId())) {
+            feedBackController.SetBadMessage($"La ciudad \"{neighbor}\" no es vecina de \"{location.getName()}\"");
+            return;
+        }
+        Animator animator = Merchants[0].GetComponent<Animator>();
+        int direction = int.Parse($"{location.getId()}{targetCity.getId()}");
+        animator.SetInteger("direction", direction);
+        cameraController.MoveCameraToCity(targetCity);
+        ChangeLocation(targetCity);
     }
 
     private void Fetch()
