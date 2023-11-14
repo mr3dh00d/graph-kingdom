@@ -1,5 +1,8 @@
 using System;
 using UnityEngine;
+using TMPro;
+using Unity.VisualScripting;
+using System.Collections;
 
 public class GameController : MonoBehaviour
 {
@@ -12,7 +15,11 @@ public class GameController : MonoBehaviour
     [SerializeField] public GameObject [] Merchants;
     [SerializeField] public Cities cities; 
     private City location;
+    private City initialCity;
     int [][] pathsCosts;
+
+    public bool isCompiling = false;
+    private int rutinasActivas = 0;
 
 
     private void Awake()
@@ -34,7 +41,9 @@ public class GameController : MonoBehaviour
     void Start()
     {
         SetPathsCosts();
-        ChangeLocation(cities.Pribram);
+        initialCity = cities.Pribram;
+        ChangeLocation(initialCity);
+        cameraController.SetCameraPosition(location.getPosition());
         location.title.color = ColorsConstants.HexToColor("#FFA500");
         feedBackController.Load();
         matrizController.Load();
@@ -75,16 +84,24 @@ public class GameController : MonoBehaviour
 
     public void ChangeLocation(City city)
     {
+        if (location != null)
+        {
+            location.title.fontStyle = FontStyles.Normal;
+        }
         location = city;
-        city.title.color = Color.yellow;
+        if (city.getId() != initialCity.getId()) {
+            city.title.color = Color.yellow;
+        }
+        city.title.fontStyle = FontStyles.Underline;
 
-        cameraController.SetCameraPosition(city.getPosition());
     }
 
     public void CompileInput(string input)
     {
+        if (isCompiling) return;
+        isCompiling = true;
         // Normaliza el input
-        input = input.ToLower().Replace("\u200B", "").Trim();
+        input = input.Replace("\u200B", "").Trim();
         if (input.Length == 0)
         {
             feedBackController.SetBadMessage("No has ingresado ningún comando");
@@ -95,13 +112,19 @@ public class GameController : MonoBehaviour
         string command = command_with_args[0];
         string[] args = new string[command_with_args.Length - 1];
         Array.Copy(command_with_args, 1, args, 0, command_with_args.Length - 1);
-        switch (command)
+        switch (command.ToLower())
         {
             case "visit":
                 Visit(args);
                 break;
             case "fetch":
                 Fetch();
+                break;
+            case "save":
+                Save(args);
+                break;
+            case "check":
+                Check();
                 break;
             default:
                 feedBackController.SetBadMessage($"El comando \"{command}\" no existe");
@@ -110,26 +133,52 @@ public class GameController : MonoBehaviour
         
     }
 
-    private void Visit(string[] args)
+    private void Save(string[] args)
     {
-        string neighbor = args[0].Trim();
+        string neighbor = string.Join(" ", args);
         if (neighbor == null || neighbor.Length == 0)
         {
-            feedBackController.SetBadMessage("No has ingresado ninguna ciudad");
+            feedBackController.SetBadMessage("Es necesario indicar la ciudad a la que se desea guardar");
             return;
         }
         City targetCity = cities.GetCityByName(neighbor);
         if(targetCity == null) {
-            feedBackController.SetBadMessage($"La ciudad \"{neighbor}\" no existe");
+            feedBackController.SetBadMessage($"La ciudad \"{neighbor.FirstCharacterToUpper()}\" no existe");
             return;
         } else if (!location.isNeighbor(targetCity.getId())) {
-            feedBackController.SetBadMessage($"La ciudad \"{neighbor}\" no es vecina de \"{location.getName()}\"");
+            feedBackController.SetBadMessage($"La ciudad \"{neighbor.FirstCharacterToUpper()}\" no es vecina de \"{location.getName()}\"");
+            return;
+        }
+        int distance = pathsCosts[location.getId() - 1][targetCity.getId() - 1];
+        matrizController.SetDistance(targetCity, distance);
+    }
+
+    private void Visit(string[] args)
+    {
+        string neighbor = string.Join(" ", args);
+        if (neighbor == null || neighbor.Length == 0)
+        {
+            feedBackController.SetBadMessage("Es necesario indicar la ciudad a la que se desea visitar");
+            return;
+        }
+        City targetCity = cities.GetCityByName(neighbor);
+        if(targetCity == null) {
+            feedBackController.SetBadMessage($"La ciudad \"{neighbor.FirstCharacterToUpper()}\" no existe");
+            return;
+        } else if (!location.isNeighbor(targetCity.getId())) {
+            feedBackController.SetBadMessage($"La ciudad \"{neighbor.FirstCharacterToUpper()}\" no es vecina de \"{location.getName()}\"");
+            return;
+        }
+        if (location.fetchedNeighbors < location.getNeighbors().Length)
+        {
+            feedBackController.SetBadMessage($"No se puede visitar \"{neighbor.FirstCharacterToUpper()}\" porque no se se sabe la distancia.");
             return;
         }
         Animator animator = Merchants[0].GetComponent<Animator>();
         int direction = int.Parse($"{location.getId()}{targetCity.getId()}");
         animator.SetInteger("direction", direction);
-        cameraController.MoveCameraToCity(targetCity);
+        cameraController.MoveCameraToCity(location, targetCity);
+        matrizController.SetVisited(targetCity);
         ChangeLocation(targetCity);
     }
 
@@ -139,7 +188,8 @@ public class GameController : MonoBehaviour
         int direction;
         Animator animator;
         foreach (int neighbor in location.getNeighbors())
-        {   
+        {
+            if (location.fetchedNeighbors < location.getNeighbors().Length) location.fetchedNeighbors++;
             animator = Merchants[merchant_encommendment].GetComponent<Animator>();
             direction = int.Parse($"{location.getId()}{neighbor}");
             animator.SetInteger("direction", direction);
@@ -148,8 +198,39 @@ public class GameController : MonoBehaviour
         }
     }
 
+    private void Check()
+    {
+
+    }
+
+    public void IniciarRutina(IEnumerator func)
+    {
+        
+        StartCoroutine(HandleCoroutine(func));
+    }
+
+    private IEnumerator HandleCoroutine(IEnumerator func)
+    {
+        rutinasActivas++;
+
+        // Lógica de la corutina especificada
+        yield return func;
+
+
+        rutinasActivas--;
+        if (rutinasActivas <= 0)
+        {
+            isCompiling = false;
+        }
+    }
+
     public City getLocation()
     {
         return location;
+    }
+
+    public City getInitialCity()
+    {
+        return initialCity;
     }
 }

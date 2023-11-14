@@ -5,13 +5,16 @@ using UnityEngine;
 [Serializable]
 public class CameraController {
     [SerializeReference] public GameObject cameraTransport;
-    private float speed = 15f;
+    private float speed = 18f;
     private bool isMoving = false;
 
-    public void MoveCameraToCity(City targetCity) {
+    public void MoveCameraToCity(City origin, City targetCity) {
         if (!isMoving) {
-            Vector3 position = targetCity.getPosition();
-            GameController.instance.StartCoroutine(MoveToTarget(position));
+            Vector3 originPosition = origin.getPosition();
+            SetCameraPosition(originPosition);
+            GameController.instance.DragMovementActive = false;
+            Vector3 targetPosition = targetCity.getPosition();
+            GameController.instance.IniciarRutina(MoveToTarget(targetPosition));
         }
     }
 
@@ -45,6 +48,7 @@ public class CameraController {
 
         cameraTransport.transform.position = targetPosition;
         isMoving = false;
+        GameController.instance.DragMovementActive = true;
     }
 
 }

@@ -7,7 +7,7 @@ public class Cities : MonoBehaviour {
     [SerializeField] public City Sedleany = new City("Sedleany", 4, new int[] {2,3,5});
     [SerializeField] public City Pribram = new City("Pribram", 5, new int[] {2,4});
     [SerializeField] public City Rakovnik = new City("Rakovnik", 6, new int[] {1});
-    [SerializeField] public City Slany = new City("Slany", 7, new int[] {1,9});
+    [SerializeField] public City Slany = new City("Slany", 7, new int[] {1,8,9});
     [SerializeField] public City Terezin = new City("Terezin", 8, new int [] {7,9});
     [SerializeField] public City Melnik = new City("Melnik", 9, new int[] {7,8,10});
     [SerializeField] public City Brandys_nad = new City("Brandys nad", 10, new int[] {1,9,11,12});

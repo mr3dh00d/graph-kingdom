@@ -13,7 +13,7 @@ public class PathsLabelsController {
         GameObject pathLabel = pathsLabels.transform.Find($"{minor}{mayor}").gameObject;
         TextMeshPro label = pathLabel.GetComponent<TextMeshPro>();
         Animator animator = pathLabel.GetComponent<Animator>();
-        GameController.instance.StartCoroutine(ShowText(label, cost.ToString(), animator));       
+        GameController.instance.IniciarRutina(ShowText(label, cost.ToString(), animator));       
         
     }
 

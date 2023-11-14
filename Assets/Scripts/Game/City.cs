@@ -11,10 +11,13 @@ public class City {
     [SerializeField] public TextMeshPro title;
     [SerializeField] public GameObject city;
 
+    public int fetchedNeighbors;
+
     public City(string name, int id, int [] neighbors) {
         this.name = name;
         this.id = id;
         this.neighbors = neighbors;
+        this.fetchedNeighbors = 0;
     }
 
     public string getName() {
