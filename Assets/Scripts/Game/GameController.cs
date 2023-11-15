@@ -8,6 +8,7 @@ public class GameController : MonoBehaviour
 {
     public static GameController instance;
     [SerializeField] public FeedBackController feedBackController;
+    [SerializeField] public DialogController dialogController;
     [SerializeField] public MatrizController matrizController;
     [SerializeField] public CameraController cameraController;
     [SerializeField] public PathsLabelsController pathsLabelsController;
@@ -41,12 +42,13 @@ public class GameController : MonoBehaviour
     void Start()
     {
         SetPathsCosts();
-        initialCity = cities.Pribram;
+        initialCity = cities.Sedleany;
         ChangeLocation(initialCity);
         cameraController.SetCameraPosition(location.getPosition());
         location.title.color = ColorsConstants.HexToColor("#FFA500");
         feedBackController.Load();
         matrizController.Load();
+        dialogController.Load();
     }
 
     // Update is called once per frame

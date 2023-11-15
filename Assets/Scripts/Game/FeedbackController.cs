@@ -33,7 +33,7 @@ public class FeedBackController
         icon.sprite = check;
         text.color = ColorsConstants.HexToColor(ColorsConstants.GREEN_TEXT);
         text.text = message;
-        GameController.instance.StartCoroutine(MostrarPanelConFade());
+        GameController.instance.IniciarRutina(MostrarPanelConFade());
     }
 
     public void SetBadMessage(string message)
@@ -42,7 +42,7 @@ public class FeedBackController
         icon.sprite = important;
         text.color = ColorsConstants.HexToColor(ColorsConstants.RED_TEXT);
         text.text = message;
-        GameController.instance.StartCoroutine(MostrarPanelConFade());
+        GameController.instance.IniciarRutina(MostrarPanelConFade());
     }
 
     IEnumerator MostrarPanelConFade()

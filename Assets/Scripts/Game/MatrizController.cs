@@ -56,13 +56,11 @@ public class MatrizController
     }
     
     private void LoadCitiesNames() {
-        int i = 1;
         foreach (City city in GameController.instance.cities.GetCities())
         {
-            GameObject fila = contenido.transform.Find($"Fila {i}").gameObject;
+            GameObject fila = contenido.transform.Find($"Fila {city.getId()}").gameObject;
             TextMeshProUGUI label = fila.transform.Find("Ciudad").gameObject.GetComponent<TextMeshProUGUI>();
             label.text = city.getName();
-            i++;
         }
     }
 

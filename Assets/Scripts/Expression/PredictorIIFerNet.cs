@@ -7,32 +7,27 @@ using System.Linq;
 
 using UnityEngine.UI;
 
-public class Predictors : MonoBehaviour
+public class PredictorIIFerNet : MonoBehaviour
 {
-    //const int IMAGE_SIZE = 48;
-    const int IMAGE_SIZE = 40;
-    //const string INPUT_NAME = "input.1";
-    //const string OUTPUT_NAME = "97";
-    //const string INPUT_NAME = "conv2d_input";
-    //const string OUTPUT_NAME = "dense_1";
-     const string INPUT_NAME = "imagenes";
-     const string OUTPUT_NAME = "emociones";
-    //const string INPUT_NAME = "Input3";
-    //const string OUTPUT_NAME = "Plus692_Output_0";
-    
-
+    const int IMAGE_SIZE = 48;
+    const string INPUT_NAME = "conv2d_input";
+    const string OUTPUT_NAME = "dense_1";
+    //const string INPUT_NAME = "imagenes";
+    //const string OUTPUT_NAME = "emociones";
+    //const string INPUT_NAME = "input";
+    //const string OUTPUT_NAME = "output";
 
     readonly List<string> OutputLabels = new List<string>() { "angry", "disgust", "fear", "happy", "neutral", "sad", "surprise" };
 
     public DisplayWebcam CameraView;//
-    public Preprocess preproc;//
+    public PreprocessIIFerNet preprocessII;//
     public NNModel modelFile;
     public Text uiText;
 
-    public float emotionCooldown = 15f;
+    public float emotionCooldown = 20f;
 
     IWorker worker;
-    
+
     void Start()
     {
         var model = ModelLoader.Load(modelFile);
@@ -43,12 +38,11 @@ public class Predictors : MonoBehaviour
     {
 
         WebCamTexture webCamTexture = CameraView.GetCamImage();
-        // @todo activar logs
-        // Debug.Log("webcam height " + webCamTexture.height + ", webcam width " + webCamTexture.width);
+        //Debug.Log("webcam height " + webCamTexture.height + ", webcam width " + webCamTexture.width);
 
         if (webCamTexture.didUpdateThisFrame && webCamTexture.width > 100)
         {
-            preproc.ScaleAndCropImage(webCamTexture, IMAGE_SIZE, RunModel);
+            preprocessII.ScaleAndCropImage(webCamTexture, IMAGE_SIZE, RunModel);
         }
 
     }
@@ -66,7 +60,6 @@ public class Predictors : MonoBehaviour
 
     IEnumerator RunModelRoutine(byte[] pixels)
     {
-
         Tensor tensor = TransformInput(pixels);
 
         var inputs = new Dictionary<string, Tensor> {
@@ -83,8 +76,7 @@ public class Predictors : MonoBehaviour
 
         //set UI text
         uiText.text = OutputLabels[index];
-        // @todo activar logs
-        Debug.Log("La emocion es " + OutputLabels[index]);
+        Debug.Log("La emocion de FerNet " + OutputLabels[index]);
 
         //dispose tensors
         tensor.Dispose();
@@ -97,8 +89,7 @@ public class Predictors : MonoBehaviour
     Tensor TransformInput(byte[] pixels)
     {
         float[] singleChannel = new float[IMAGE_SIZE * IMAGE_SIZE];
-        // @todo activar logs
-        // Debug.Log("Tamaño del tensor " + singleChannel.Length);
+        //Debug.Log("Tama�o del tensor " + singleChannel.Length);
         for (int i = 0; i < singleChannel.Length; i++)
         {
             Color color = new Color32(pixels[i * 3 + 0], pixels[i * 3 + 1], pixels[i * 3 + 2], 255);
@@ -106,24 +97,5 @@ public class Predictors : MonoBehaviour
         }
         return new Tensor(1, IMAGE_SIZE, IMAGE_SIZE, 1, singleChannel);
     }
-    /*public NNmodel modelo;
-    private Model m_RuntimeModel;
 
-    IWorker worker;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        m_RuntimeModel = ModelLoader.Load(modelo);
-        m_Worker = WorkerFactory.CreateWorker(WorkerFactory.Type.ComputePrecompiled, modelo);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        Tensor input = new Tensor(64, 48, 48, 1);
-        m_Worker.Execute(input);
-        Tensor O = m_Worker.PeekOutput("output_layer_name");
-        input.Dispose();
-    }*/
 }
