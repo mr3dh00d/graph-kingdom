@@ -5649,6 +5649,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8235400682496589279, guid: bbc972af8e8eb2f4fb007c1d77bc2942, type: 3}
   m_PrefabInstance: {fileID: 714962626}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &721167151 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8669643403953702322, guid: fdc48ed2f50f2f048b64649aef1e0b68, type: 3}
+  m_PrefabInstance: {fileID: 2081808115}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &734669574
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8923,13 +8934,24 @@ MonoBehaviour:
     check: {fileID: 21300000, guid: 3ca06027c9f06ee44a9722fa603440bc, type: 3}
   dialogController:
     dialogPanel: {fileID: 214052497}
+    textSpeed: 0.05
+    dialogos: []
+    fetchCommandFlag: 0
+    saveCommandFlag: 0
+    visitCommandFlag: 0
   matrizController:
     matrizPanel: {fileID: 755122448}
   cameraController:
     cameraTransport: {fileID: 1832730817}
   pathsLabelsController:
     pathsLabels: {fileID: 1161406798}
+  emotions:
+    fetnetLabel: {fileID: 1881831020}
+    vggLabel: {fileID: 721167151}
+    fetnetEmotion: 
+    vggEmotion: 
   DragMovementActive: 1
+  InputPanel: {fileID: 2081808116}
   Merchants:
   - {fileID: 1431999189}
   - {fileID: 1462090351}
@@ -14436,6 +14458,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4456580995697265040, guid: bbc972af8e8eb2f4fb007c1d77bc2942, type: 3}
   m_PrefabInstance: {fileID: 804610780}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1881831020 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4587755865488967872, guid: fdc48ed2f50f2f048b64649aef1e0b68, type: 3}
+  m_PrefabInstance: {fileID: 2081808115}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1897795817
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15475,7 +15508,7 @@ PrefabInstance:
     - target: {fileID: 10074493597747608, guid: fdc48ed2f50f2f048b64649aef1e0b68, type: 3}
       propertyPath: modelFile
       value: 
-      objectReference: {fileID: 5022602860645237092, guid: d7197fe07a019da44bb1fc03ff22dce4, type: 3}
+      objectReference: {fileID: 5022602860645237092, guid: 4019b55029b020949a4bcc42924ce981, type: 3}
     - target: {fileID: 1306239215473286824, guid: fdc48ed2f50f2f048b64649aef1e0b68, type: 3}
       propertyPath: m_Name
       value: Dialog
@@ -15524,11 +15557,24 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6455593894198185513, guid: fdc48ed2f50f2f048b64649aef1e0b68, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8439167017293663268, guid: fdc48ed2f50f2f048b64649aef1e0b68, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fdc48ed2f50f2f048b64649aef1e0b68, type: 3}
+--- !u!1 &2081808116 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 287490965283336817, guid: fdc48ed2f50f2f048b64649aef1e0b68, type: 3}
+  m_PrefabInstance: {fileID: 2081808115}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2089026295
 PrefabInstance:
   m_ObjectHideFlags: 0

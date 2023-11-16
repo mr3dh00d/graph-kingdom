@@ -76,7 +76,7 @@ public class PredictorIIFerNet : MonoBehaviour
 
         //set UI text
         uiText.text = OutputLabels[index];
-        Debug.Log("La emocion de FerNet " + OutputLabels[index]);
+        // Debug.Log("La emocion de FerNet " + OutputLabels[index]);
 
         //dispose tensors
         tensor.Dispose();

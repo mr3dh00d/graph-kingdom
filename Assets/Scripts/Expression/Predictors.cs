@@ -84,7 +84,7 @@ public class Predictors : MonoBehaviour
         //set UI text
         uiText.text = OutputLabels[index];
         // @todo activar logs
-        Debug.Log("La emocion es " + OutputLabels[index]);
+        // Debug.Log("La emocion es " + OutputLabels[index]);
 
         //dispose tensors
         tensor.Dispose();

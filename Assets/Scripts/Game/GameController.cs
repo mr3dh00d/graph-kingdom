@@ -3,6 +3,8 @@ using UnityEngine;
 using TMPro;
 using Unity.VisualScripting;
 using System.Collections;
+using UnityEditor;
+using UnityEngine.UI;
 
 public class GameController : MonoBehaviour
 {
@@ -12,15 +14,22 @@ public class GameController : MonoBehaviour
     [SerializeField] public MatrizController matrizController;
     [SerializeField] public CameraController cameraController;
     [SerializeField] public PathsLabelsController pathsLabelsController;
+    [SerializeField] public Emotions emotions;
     [SerializeField] public bool DragMovementActive = true;
+    [SerializeField] public GameObject InputPanel;
     [SerializeField] public GameObject [] Merchants;
     [SerializeField] public Cities cities; 
+    private APIController apiController;
     private City location;
     private City initialCity;
     int [][] pathsCosts;
 
     public bool isCompiling = false;
     private int rutinasActivas = 0;
+    private User user;
+    private TMP_InputField inputField;
+    private int saveNodes = 0;
+    public string sessionId;
 
 
     private void Awake()
@@ -46,9 +55,14 @@ public class GameController : MonoBehaviour
         ChangeLocation(initialCity);
         cameraController.SetCameraPosition(location.getPosition());
         location.title.color = ColorsConstants.HexToColor("#FFA500");
+        apiController = new APIController();
         feedBackController.Load();
         matrizController.Load();
         dialogController.Load();
+        dialogController.ShowWelcomeMessage();
+        inputField = InputPanel.transform.Find("InputField (TMP)").gameObject.GetComponent<TMP_InputField>();
+        sessionId = Guid.NewGuid().ToString();
+        Debug.Log($"El ID de la sesion es {sessionId}");
     }
 
     // Update is called once per frame
@@ -114,16 +128,41 @@ public class GameController : MonoBehaviour
         string command = command_with_args[0];
         string[] args = new string[command_with_args.Length - 1];
         Array.Copy(command_with_args, 1, args, 0, command_with_args.Length - 1);
+        if(user == null) {
+            if (command.ToLower() != "name")
+            {
+                feedBackController.SetBadMessage("Debes indicar tu nombre de usuario");
+                return;
+            }
+            string username = args[0];
+            apiController.SearchUser(username);
+            inputField.text = "";
+            return;
+        }
         switch (command.ToLower())
         {
+            case "name":
+                feedBackController.SetBadMessage("Ya has indicado tu nombre de usuario");
+                break;
             case "visit":
+                if(!dialogController.fetchCommandFlag || !dialogController.saveCommandFlag) {
+                    feedBackController.SetBadMessage("Aun no puedes visitar ciudades");
+                    break;
+                }
                 Visit(args);
                 break;
             case "fetch":
                 Fetch();
                 break;
             case "save":
+                if(!dialogController.fetchCommandFlag) {
+                    feedBackController.SetBadMessage("Aun no puedes guardar ciudades");
+                    break;
+                }
                 Save(args);
+                break;
+            case "help":
+                Help(args);
                 break;
             case "check":
                 Check();
@@ -131,8 +170,29 @@ public class GameController : MonoBehaviour
             default:
                 feedBackController.SetBadMessage($"El comando \"{command}\" no existe");
                 break;
-        }        
-        
+        }
+        inputField.text = "";
+    }
+
+    private void Help(string[] args)
+    {
+        string command = string.Join(" ", args).Trim();
+        if (command == null || command.Length == 0)
+        {
+            dialogController.ShowHelpMessage();
+        } else {
+            if(
+                command != "fetch"
+                && command != "save"
+                && command != "visit"
+                && command != "check"
+            ) {
+                feedBackController.SetBadMessage($"El comando \"{command}\" no existe");
+            } else {
+                dialogController.ShowThisCommandHelp(command);
+            }
+        }
+
     }
 
     private void Save(string[] args)
@@ -152,7 +212,11 @@ public class GameController : MonoBehaviour
             return;
         }
         int distance = pathsCosts[location.getId() - 1][targetCity.getId() - 1];
-        matrizController.SetDistance(targetCity, distance);
+        bool result = matrizController.SetDistance(targetCity, distance);
+        if(!result) return;
+        saveNodes++;
+        apiController.SaveRecord();
+        dialogController.ConfirmSaveCommand();
     }
 
     private void Visit(string[] args)
@@ -182,6 +246,7 @@ public class GameController : MonoBehaviour
         cameraController.MoveCameraToCity(location, targetCity);
         matrizController.SetVisited(targetCity);
         ChangeLocation(targetCity);
+        dialogController.ConfirmVisitCommand();
     }
 
     private void Fetch()
@@ -198,6 +263,7 @@ public class GameController : MonoBehaviour
             pathsLabelsController.RevealCost(location.getId(), neighbor, pathsCosts[location.getId() - 1][neighbor - 1]);
             merchant_encommendment++;
         }
+        dialogController.ConfirmFetchCommand();
     }
 
     private void Check()
@@ -234,5 +300,28 @@ public class GameController : MonoBehaviour
     public City getInitialCity()
     {
         return initialCity;
+    }
+
+    public void setUser(string id, string username)
+    {
+        user = new User {
+            id = id,
+            username = username
+        };
+    }
+
+    public int getNodosGuardados()
+    {
+        return saveNodes;
+    }
+
+    public bool isUserSet()
+    {
+        return user != null && user.username != null && user.username.Length > 0 && user.id != null && user.id.Length > 0;
+    }
+
+    public User getUser()
+    {
+        return user;
     }
 }

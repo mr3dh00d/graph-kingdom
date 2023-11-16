@@ -72,12 +72,12 @@ public class MatrizController
         }
     }
 
-    public void SetDistance(City city, int distance) {
+    public bool SetDistance(City city, int distance) {
         int id = city.getId() - 1;
         int currentDistance = matriz[GameController.instance.getLocation().getId() - 1].distance;
         if (currentDistance == int.MaxValue) {
             GameController.instance.feedBackController.SetBadMessage($"No se puede calcular la distancia a {city.getName()} porque no se ha guardó la ciudad anterior");
-            return;
+            return false;
         }
         distance = currentDistance + distance;
         if(distance < matriz[id].distance) {
@@ -92,7 +92,9 @@ public class MatrizController
         } else {
             string isDistance = matriz[id].distance == distance ? "igual" : "mayor";
             GameController.instance.feedBackController.SetBadMessage($"La distancia a {city.getName()} es {isDistance} a la actual distancia actual.");
+            return false;
         }
+        return true;
     }
 
 }
