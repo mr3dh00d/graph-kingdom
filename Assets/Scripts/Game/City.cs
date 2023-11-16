@@ -1,8 +1,6 @@
 using System;
-using System.ComponentModel;
 using UnityEngine;
 using TMPro;
-using TMPro.EditorUtilities;
 [Serializable]
 public class City {
     [SerializeField] private string name;

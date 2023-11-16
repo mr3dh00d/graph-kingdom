@@ -32,6 +32,8 @@ public class GameController : MonoBehaviour
     public string sessionId;
     private Dijkstra dijkstra;
 
+    private bool finish = false;
+
 
     private void Awake()
     {
@@ -171,6 +173,9 @@ public class GameController : MonoBehaviour
             case "check":
                 Check();
                 break;
+            case "exit":
+                Exit(args);
+                break;
             default:
                 feedBackController.SetBadMessage($"El comando \"{command}\" no existe");
                 break;
@@ -284,9 +289,30 @@ public class GameController : MonoBehaviour
         bool result = dijkstra.RevisarCamino();
         if(result){
             feedBackController.SetGoodMessage("¡Felicidades! Has completado el juego");
+
             apiController.SaveRecord();
         }
 
+    }
+
+    private void Exit(string[] args)
+    {
+        string command = string.Join(" ", args).Trim();
+        if (command == null || command.Length == 0)
+        {
+            if(!finish) {
+                feedBackController.SetBadMessage("Debes terminar el juego para salir");
+            }
+        }
+        if(command != "force") return;
+
+        dialogController.ShowFinalMessage();
+    }
+
+    public IEnumerator CloseGame(){
+        finish = true;
+        yield return new WaitForSeconds(1.5f);
+        Application.Quit();
     }
 
     public void IniciarRutina(IEnumerator func)

@@ -1,17 +1,14 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Data.Common;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Networking;
 using UnityEngine.UI;
 
 [Serializable]
 public class DialogController {
     [SerializeField] public GameObject dialogPanel;
-    [SerializeField] public float textSpeed = 0.005f;
+    [SerializeField] public float textSpeed = 0.01f;
     public List<string> dialogos;
     private Animator animator;
     private TextMeshProUGUI text;
@@ -50,6 +47,16 @@ public class DialogController {
         NextLine();
     }
 
+    public void ShowFinalMessage(){
+        phase = 4;
+        index = 0;
+        NextLineFlag = true;
+        animatorInputPanel.SetTrigger("toggle");
+        LoadFinalDialogs();
+        GameController.instance.StartCoroutine(TogglePanel());
+        NextLine();
+    }
+
     public void ShowHelpMessage() {
         phase = 3;
         index = 0;
@@ -77,7 +84,7 @@ public class DialogController {
         buttonObject.SetActive(false);
         foreach (char letter in message.ToCharArray()) {
             text.text += letter;
-            yield return new WaitForSeconds(textSpeed);
+            yield return new WaitForSecondsRealtime(textSpeed);
         }
         if (NextLineFlag) buttonObject.SetActive(true);
     }
@@ -98,6 +105,9 @@ public class DialogController {
                 break;
             case 3:
                 if(ConditionsHelp()) return;
+                break;
+            case 4:
+                if(conditionsFinish()) return;
                 break;
         }   
         index++;
@@ -179,11 +189,22 @@ public class DialogController {
         }
         return false;
     }
+
+    private bool conditionsFinish() {
+        if (index >= dialogos.Count-1) {
+            text.text = "";
+            buttonObject.SetActive(false);
+            GameController.instance.IniciarRutina(TogglePanel());
+            GameController.instance.IniciarRutina(GameController.instance.CloseGame());
+        }
+        return false;
+    }
+
     private void LoadStartDialogs() {
         dialogos = new List<string> {
             $"Hola, soy Fernet, Rey de {GameController.instance.getInitialCity().getName()}", //0
             "Estoy aquí para ayudarte a aprender sobre un algoritmo muy importante: Dijkstra",//1
-            "¿Quieres aprender a como funciona?",//2
+            "¿Quieres aprender cómo funciona?",//2
             "¡Genial! ¡Vamos a empezar!",//3
             "Primero, debo saber tu nombre",//4
             "Para poder decirme tu nombre debes ejecutar un comando en la consola",//5
@@ -258,6 +279,14 @@ public class DialogController {
                 };
                 break;
         }
+    }
+
+    public void LoadFinalDialogs(){
+        dialogos = new List<string> {
+            "¡Felicidades! ¡Has completado la matriz de costos!",//0
+            "Ahora ya sabes como funciona el algoritmo de Dijkstra",//1
+            "¡Gracias por jugar!\n¡Espero que hayas aprendido mucho!",//2
+        };
     }
 
     public void ConfirmFetchCommand() {
