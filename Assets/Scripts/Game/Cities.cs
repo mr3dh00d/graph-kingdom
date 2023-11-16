@@ -31,6 +31,10 @@ public class Cities : MonoBehaviour {
         };
     }
 
+    public int GetNumCities() {
+        return GetCities().Length;
+    }
+
     public City GetCityById(int id) {
         foreach (City city in GetCities())
         {

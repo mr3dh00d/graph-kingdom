@@ -58,6 +58,7 @@ public class APIController {
             {
                 Debug.LogError(www.error);
             } else {
+                Debug.Log("Consulta SearchUser exitosa");
                 string responseData = www.downloadHandler.text;
                 SearchUserResponse data = JsonConvert.DeserializeObject<SearchUserResponse>(responseData);
                 if(data.totalItems > 0) {
@@ -90,6 +91,7 @@ public class APIController {
             {
                 Debug.LogError("Error: " + www.error + ", Response: " + www.downloadHandler.text);
             } else {
+                Debug.Log("Consulta CreateUser exitosa");
                 string responseData = www.downloadHandler.text;
                 CreateUserResponse data = JsonUtility.FromJson<CreateUserResponse>(responseData);
                 GameController.instance.setUser(data.id, data.username);
@@ -120,6 +122,8 @@ public class APIController {
             if (www.result != UnityWebRequest.Result.Success)
             {
                 Debug.LogError("Error: " + www.error + ", Response: " + www.downloadHandler.text);
+            } else {
+                Debug.Log("Consulta SaveRecord exitosa");
             }
         }
     }

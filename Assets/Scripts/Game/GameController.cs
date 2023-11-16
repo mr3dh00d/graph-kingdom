@@ -22,7 +22,7 @@ public class GameController : MonoBehaviour
     private APIController apiController;
     private City location;
     private City initialCity;
-    int [][] pathsCosts;
+    public int [][] pathsCosts;
 
     public bool isCompiling = false;
     private int rutinasActivas = 0;
@@ -30,6 +30,7 @@ public class GameController : MonoBehaviour
     private TMP_InputField inputField;
     private int saveNodes = 0;
     public string sessionId;
+    private Dijkstra dijkstra;
 
 
     private void Awake()
@@ -53,6 +54,8 @@ public class GameController : MonoBehaviour
         SetPathsCosts();
         initialCity = cities.Sedleany;
         ChangeLocation(initialCity);
+        dijkstra = new Dijkstra();
+        dijkstra.ApplyDijkstra();
         cameraController.SetCameraPosition(location.getPosition());
         location.title.color = ColorsConstants.HexToColor("#FFA500");
         apiController = new APIController();
@@ -62,7 +65,8 @@ public class GameController : MonoBehaviour
         dialogController.ShowWelcomeMessage();
         inputField = InputPanel.transform.Find("InputField (TMP)").gameObject.GetComponent<TMP_InputField>();
         sessionId = Guid.NewGuid().ToString();
-        Debug.Log($"El ID de la sesion es {sessionId}");
+
+        Debug.Log($"El ID de la sesión es {sessionId}");
     }
 
     // Update is called once per frame
@@ -216,7 +220,7 @@ public class GameController : MonoBehaviour
         if(!result) return;
         saveNodes++;
         apiController.SaveRecord();
-        dialogController.ConfirmSaveCommand();
+        if(!dialogController.saveCommandFlag) dialogController.ConfirmSaveCommand();
     }
 
     private void Visit(string[] args)
@@ -246,7 +250,7 @@ public class GameController : MonoBehaviour
         cameraController.MoveCameraToCity(location, targetCity);
         matrizController.SetVisited(targetCity);
         ChangeLocation(targetCity);
-        dialogController.ConfirmVisitCommand();
+        if(!dialogController.visitCommandFlag) dialogController.ConfirmVisitCommand();
     }
 
     private void Fetch()
@@ -263,11 +267,25 @@ public class GameController : MonoBehaviour
             pathsLabelsController.RevealCost(location.getId(), neighbor, pathsCosts[location.getId() - 1][neighbor - 1]);
             merchant_encommendment++;
         }
-        dialogController.ConfirmFetchCommand();
+        if(!dialogController.fetchCommandFlag) dialogController.ConfirmFetchCommand();
     }
 
     private void Check()
     {
+        // Revisar si ya guardo todas las ciudades
+        foreach(DistanceInfo info in matrizController.getMatriz())
+        {
+            if(info.Distance == int.MaxValue || info.Predecessor == null) {
+                feedBackController.SetBadMessage("Aun no has guardado todas las ciudades");
+                return;
+            }
+        }
+        // Revisar matriz
+        bool result = dijkstra.RevisarCamino();
+        if(result){
+            feedBackController.SetGoodMessage("¡Felicidades! Has completado el juego");
+            apiController.SaveRecord();
+        }
 
     }
 

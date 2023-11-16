@@ -39,7 +39,13 @@ public class DialogController {
     }
 
     public void ShowWelcomeMessage() {
-        index = 8;
+        // @todo: mostrar mensaje de bienvenida
+        // animatorInputPanel.SetTrigger("toggle");
+        // fetchCommandFlag = true;
+        // saveCommandFlag = true;
+        // visitCommandFlag = true;
+
+        index = 0;
         GameController.instance.StartCoroutine(TogglePanel());
         NextLine();
     }
@@ -92,7 +98,7 @@ public class DialogController {
                 break;
             case 3:
                 if(ConditionsHelp()) return;
-                return;
+                break;
         }   
         index++;
         NextLine();
@@ -120,7 +126,6 @@ public class DialogController {
     }
 
     private bool conditionsTutorial() {
-        Debug.Log($"index: {index}; dialogos.Count: {dialogos.Count}");
         switch (index)
         {
             case int n when n >= dialogos.Count-1:
@@ -166,7 +171,6 @@ public class DialogController {
     }
 
     private bool ConditionsHelp() {
-        Debug.Log($"index: {index}; dialogos.Count: {dialogos.Count-1}");
         if (index >= dialogos.Count-1) {
             text.text = "";
             buttonObject.SetActive(false);

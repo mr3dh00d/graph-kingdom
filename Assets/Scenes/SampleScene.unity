@@ -8948,8 +8948,6 @@ MonoBehaviour:
   emotions:
     fetnetLabel: {fileID: 1881831020}
     vggLabel: {fileID: 721167151}
-    fetnetEmotion: 
-    vggEmotion: 
   DragMovementActive: 1
   InputPanel: {fileID: 2081808116}
   Merchants:
@@ -8959,6 +8957,7 @@ MonoBehaviour:
   - {fileID: 907859066}
   cities: {fileID: 1354749952}
   isCompiling: 0
+  sessionId: 
 --- !u!4 &1096415077
 Transform:
   m_ObjectHideFlags: 0
@@ -15508,7 +15507,7 @@ PrefabInstance:
     - target: {fileID: 10074493597747608, guid: fdc48ed2f50f2f048b64649aef1e0b68, type: 3}
       propertyPath: modelFile
       value: 
-      objectReference: {fileID: 5022602860645237092, guid: 4019b55029b020949a4bcc42924ce981, type: 3}
+      objectReference: {fileID: 5022602860645237092, guid: d7197fe07a019da44bb1fc03ff22dce4, type: 3}
     - target: {fileID: 1306239215473286824, guid: fdc48ed2f50f2f048b64649aef1e0b68, type: 3}
       propertyPath: m_Name
       value: Dialog
@@ -15561,6 +15560,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7930012782577582898, guid: fdc48ed2f50f2f048b64649aef1e0b68, type: 3}
+      propertyPath: modelFile
+      value: 
+      objectReference: {fileID: 5022602860645237092, guid: 4b342e370bb209e42b5ffb6455808823, type: 3}
     - target: {fileID: 8439167017293663268, guid: fdc48ed2f50f2f048b64649aef1e0b68, type: 3}
       propertyPath: m_IsActive
       value: 1
