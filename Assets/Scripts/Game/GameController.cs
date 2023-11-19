@@ -74,7 +74,12 @@ public class GameController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if(Input.GetKeyDown(KeyCode.Q)) {
+            dialogController.skipDialog();
+        }
+        if(Input.GetKeyDown(KeyCode.E)) {
+            dialogController.buttonPress();
+        }
     }
 
     private void SetPathsCosts() {
@@ -289,8 +294,8 @@ public class GameController : MonoBehaviour
         bool result = dijkstra.RevisarCamino();
         if(result){
             feedBackController.SetGoodMessage("¡Felicidades! Has completado el juego");
-
             apiController.SaveRecord();
+            dialogController.ShowFinalMessage();
         }
 
     }

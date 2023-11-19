@@ -93,7 +93,6 @@ public class Dijkstra
         {
             if (
                 matrizUsuario[i].Distance != matrizSolucion[i].Distance
-                || matrizUsuario[i].Predecessor != matrizSolucion[i].Predecessor
             )
             {
                 City city = GameController.instance.cities.GetCityById(i+1);
