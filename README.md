@@ -11,19 +11,15 @@ Este repositorio de Github contiene el proyecto de un juego educativo de estrate
 
 ## Descripción del Proyecto
 
-El juego educativo se centra en enseñar a los estudiantes sobre grafos y sus algoritmos a través de desafíos y puzles progresivos. El jugador asume el rol de un aprendiz de magia en las tierras de Bohemia durante el siglo XV. El objetivo es ayudar a un señor local a vender los recursos de una mina recién descubierta, aumentando su riqueza y poderío en el reino.
+El juego educativo se centra en enseñar a los estudiantes sobre grafos y el algoritmo Dijkstra a través de un desafío. El jugador asume el rol de un aprendiz de comercio en las tierras de Bohemia durante el siglo XV. El objetivo es ayudar a un señor local a vender los recursos de una mina recién descubierta, aumentando su riqueza y poderío en el reino.
 
-El juego se desarrolla en dos apartados principales. Por un lado, se presenta un mapa del reino de Bohemia, donde se representan las ciudades como nodos y los caminos como aristas. Por otro lado, los jugadores tienen un espacio para escribir su código en Python, que representará el algoritmo que resolverá los desafíos del juego.
+El juego se desarrolla en dos apartados principales. Por un lado, se presenta un mapa del reino de Bohemia, donde se representan las ciudades como nodos y los caminos como aristas. Por otro lado, los jugadores tienen un espacio para completar una matriz de costos con los pesos a cada ciudad del reino desde la ciudad inicial, que representará el algoritmo que resolverá el desafío del juego.
 
-El jugador debe crear algoritmos que solucionen problemas de comercio, como encontrar el camino más corto entre ciudades, encontrar un árbol de expansión mínima para llegar rápidamente a cualquier ciudad, y encontrar el flujo máximo para transportar la máxima cantidad de recursos. A medida que se solucionan los puzles, los desafíos aumentan en dificultad.
-
-El juego cuenta con ayudas, guías e información que ayudarán a los jugadores a superar los desafíos. Los jugadores podrán ejecutar su algoritmo y visualizar en tiempo real la simulación del proceso de ejecución, lo que les permitirá comprender de manera más clara el funcionamiento de los grafos y sus algoritmos.
+El jugador debe dar instrucciones que solucionen el problema de comercio, encontrar el camino más corto entre ciudades. El juego cuenta con ayudas e información que ayudarán a los jugadores a superar el desafío. Los jugadores podrán seguir el algoritmo de Dijkstra y visualizar en tiempo real la simulación del proceso de ejecución, lo que les permitirá comprender de manera más clara el funcionamiento de los grafos y el algoritmo.
 
 ## Requisitos
 
 - Unity 2022.3.8f1 o superior
-- Python 3.4 instalado
-- Bibliotecas de Python: IronPython
 
 ## Instrucciones de Uso
 
