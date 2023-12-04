@@ -14,8 +14,6 @@ public class PredictorIIFerNet : MonoBehaviour
     const string OUTPUT_NAME = "dense_1";
     //const string INPUT_NAME = "imagenes";
     //const string OUTPUT_NAME = "emociones";
-    //const string INPUT_NAME = "input";
-    //const string OUTPUT_NAME = "output";
 
     readonly List<string> OutputLabels = new List<string>() { "angry", "disgust", "fear", "happy", "neutral", "sad", "surprise" };
 

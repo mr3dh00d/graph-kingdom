@@ -13,12 +13,8 @@ public class Predictors : MonoBehaviour
     const int IMAGE_SIZE = 40;
     //const string INPUT_NAME = "input.1";
     //const string OUTPUT_NAME = "97";
-    //const string INPUT_NAME = "conv2d_input";
-    //const string OUTPUT_NAME = "dense_1";
      const string INPUT_NAME = "imagenes";
      const string OUTPUT_NAME = "emociones";
-    //const string INPUT_NAME = "Input3";
-    //const string OUTPUT_NAME = "Plus692_Output_0";
     
 
 
@@ -28,6 +24,7 @@ public class Predictors : MonoBehaviour
     public Preprocess preproc;//
     public NNModel modelFile;
     public Text uiText;
+    public Text CanvaTextB;
 
     public float emotionCooldown = 15f;
 
@@ -90,6 +87,9 @@ public class Predictors : MonoBehaviour
         tensor.Dispose();
         outputTensor.Dispose();
 
+        float Br = GetBrightness(pixels);
+        CanvaTextB.text = Br.ToString();
+
         yield return null;
     }
 
@@ -106,24 +106,22 @@ public class Predictors : MonoBehaviour
         }
         return new Tensor(1, IMAGE_SIZE, IMAGE_SIZE, 1, singleChannel);
     }
-    /*public NNmodel modelo;
-    private Model m_RuntimeModel;
 
-    IWorker worker;
-
-    // Start is called before the first frame update
-    void Start()
+    float GetBrightness(byte[] pixels)
     {
-        m_RuntimeModel = ModelLoader.Load(modelo);
-        m_Worker = WorkerFactory.CreateWorker(WorkerFactory.Type.ComputePrecompiled, modelo);
+        int TotalSize = IMAGE_SIZE * IMAGE_SIZE;
+        float[] arrayValores = new float[TotalSize];
+        for (int i = 0; i < arrayValores.Length; i++)
+        {
+            Color color = new Color32(pixels[i * 3 + 0], pixels[i * 3 + 1], pixels[i * 3 + 2], 255);
+            arrayValores[i] = color.grayscale * 255;
+        }
+        float sumVal = 0;
+        for (int i = 0; i < arrayValores.Length; i++)
+        {
+            sumVal += arrayValores[i];
+        }
+        float aVg = sumVal / TotalSize;
+        return aVg;
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        Tensor input = new Tensor(64, 48, 48, 1);
-        m_Worker.Execute(input);
-        Tensor O = m_Worker.PeekOutput("output_layer_name");
-        input.Dispose();
-    }*/
 }

@@ -37,6 +37,7 @@ class SaveRecordRequest {
     public string session_id;
     public string emocion;
     public int nodos_guardados;
+    public float brillo_calculado;
 }
 
 public class APIController {
@@ -101,17 +102,18 @@ public class APIController {
     }
 
     public void SaveRecord() {
-        GameController.instance.IniciarRutina(SaveRecordCoroutine("data_vgg", GameController.instance.emotions.vggLabel.text));
-        GameController.instance.IniciarRutina(SaveRecordCoroutine("data_fernet", GameController.instance.emotions.vggLabel.text));
+        GameController.instance.IniciarRutina(SaveRecordCoroutine("data_vgg", GameController.instance.emotions.vggLabel.text, float.Parse(GameController.instance.emotions.brightnessLabel.text)));
+        GameController.instance.IniciarRutina(SaveRecordCoroutine("data_fernet", GameController.instance.emotions.fetnetLabel.text, -1f));
     }
 
-    private IEnumerator SaveRecordCoroutine(string collectionName, string emotion) {
+    private IEnumerator SaveRecordCoroutine(string collectionName, string emotion, float brillo_calculado) {
         string url = $"{API_URL}/{collectionName}/records";
         SaveRecordRequest data = new SaveRecordRequest {
             tester = GameController.instance.getUser().id,
             session_id = GameController.instance.sessionId,
             emocion = emotion ?? "",
-            nodos_guardados = GameController.instance.getNodosGuardados()
+            nodos_guardados = GameController.instance.getNodosGuardados(),
+            brillo_calculado = brillo_calculado
         };
         string json = JsonUtility.ToJson(data);
         using (UnityWebRequest www = UnityWebRequest.Post(url, json, "application/json"))

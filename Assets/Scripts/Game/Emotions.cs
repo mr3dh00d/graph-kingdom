@@ -6,4 +6,5 @@ using UnityEngine.UI;
 public class Emotions {
     [SerializeField] public Text fetnetLabel;
     [SerializeField] public Text vggLabel;
+    [SerializeField] public Text brightnessLabel;
 }

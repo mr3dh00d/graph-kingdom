@@ -3538,6 +3538,17 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &452559930 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5327922901943732954, guid: fdc48ed2f50f2f048b64649aef1e0b68, type: 3}
+  m_PrefabInstance: {fileID: 2081808115}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &461864992
 GameObject:
   m_ObjectHideFlags: 0
@@ -8948,6 +8959,7 @@ MonoBehaviour:
   emotions:
     fetnetLabel: {fileID: 1881831020}
     vggLabel: {fileID: 721167151}
+    brightnessLabel: {fileID: 452559930}
   DragMovementActive: 1
   InputPanel: {fileID: 2081808116}
   Merchants:
@@ -15507,7 +15519,7 @@ PrefabInstance:
     - target: {fileID: 10074493597747608, guid: fdc48ed2f50f2f048b64649aef1e0b68, type: 3}
       propertyPath: modelFile
       value: 
-      objectReference: {fileID: 5022602860645237092, guid: d7197fe07a019da44bb1fc03ff22dce4, type: 3}
+      objectReference: {fileID: 5022602860645237092, guid: 32e71935ae9db3f4abb727398e587d19, type: 3}
     - target: {fileID: 1306239215473286824, guid: fdc48ed2f50f2f048b64649aef1e0b68, type: 3}
       propertyPath: m_Name
       value: Dialog
@@ -15515,6 +15527,14 @@ PrefabInstance:
     - target: {fileID: 3338585312951733393, guid: fdc48ed2f50f2f048b64649aef1e0b68, type: 3}
       propertyPath: m_Name
       value: Panel
+      objectReference: {fileID: 0}
+    - target: {fileID: 4312038866696757426, guid: fdc48ed2f50f2f048b64649aef1e0b68, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -65.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4312038866696757426, guid: fdc48ed2f50f2f048b64649aef1e0b68, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 276.1
       objectReference: {fileID: 0}
     - target: {fileID: 5180880847050599180, guid: fdc48ed2f50f2f048b64649aef1e0b68, type: 3}
       propertyPath: m_LocalPosition.x
@@ -15560,10 +15580,18 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7059424578756586485, guid: fdc48ed2f50f2f048b64649aef1e0b68, type: 3}
+      propertyPath: m_Name
+      value: TextRed2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7743701128818831526, guid: fdc48ed2f50f2f048b64649aef1e0b68, type: 3}
+      propertyPath: m_Name
+      value: TextRed1
+      objectReference: {fileID: 0}
     - target: {fileID: 7930012782577582898, guid: fdc48ed2f50f2f048b64649aef1e0b68, type: 3}
       propertyPath: modelFile
       value: 
-      objectReference: {fileID: 5022602860645237092, guid: 4b342e370bb209e42b5ffb6455808823, type: 3}
+      objectReference: {fileID: 5022602860645237092, guid: 180814cd81af7f94d9f60a90fbd28058, type: 3}
     - target: {fileID: 8439167017293663268, guid: fdc48ed2f50f2f048b64649aef1e0b68, type: 3}
       propertyPath: m_IsActive
       value: 1

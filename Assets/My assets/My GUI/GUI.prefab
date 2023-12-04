@@ -6901,8 +6901,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CameraView: {fileID: 7672921963515722150}
   preproc: {fileID: 864822400667818749}
-  modelFile: {fileID: 5022602860645237092, guid: 4019b55029b020949a4bcc42924ce981, type: 3}
+  modelFile: {fileID: 5022602860645237092, guid: 32e71935ae9db3f4abb727398e587d19, type: 3}
   uiText: {fileID: 8669643403953702322}
+  CanvaTextB: {fileID: 5327922901943732954}
   emotionCooldown: 15
 --- !u!114 &864822400667818749
 MonoBehaviour:
@@ -7027,7 +7028,7 @@ GameObject:
   - component: {fileID: 5682357639348808967}
   - component: {fileID: 4587755865488967872}
   m_Layer: 5
-  m_Name: Text (Legacy) (1)
+  m_Name: TextRed2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7304,6 +7305,85 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1 &7207160001975917730
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4312038866696757426}
+  - component: {fileID: 588557894000295778}
+  - component: {fileID: 5327922901943732954}
+  m_Layer: 5
+  m_Name: TextInfoB
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &4312038866696757426
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7207160001975917730}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3039297482030099921}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 0}
+  m_AnchoredPosition: {x: -78, y: 245}
+  m_SizeDelta: {x: 140, y: 25}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &588557894000295778
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7207160001975917730}
+  m_CullTransparentMesh: 1
+--- !u!114 &5327922901943732954
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7207160001975917730}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 14
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 10
+    m_MaxSize: 40
+    m_Alignment: 4
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: 
 --- !u!1 &7514139340803545197
 GameObject:
   m_ObjectHideFlags: 0
@@ -7450,7 +7530,7 @@ GameObject:
   - component: {fileID: 6961063098468645428}
   - component: {fileID: 8669643403953702322}
   m_Layer: 5
-  m_Name: Text (Legacy)
+  m_Name: TextRed1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8138,8 +8218,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CameraView: {fileID: 7672921963515722150}
   preprocessII: {fileID: 7720522357811623223}
-  modelFile: {fileID: 5022602860645237092, guid: 086cf219fb5e83e4a8687f7b3c3c5c3a, type: 3}
+  modelFile: {fileID: 5022602860645237092, guid: 180814cd81af7f94d9f60a90fbd28058, type: 3}
   uiText: {fileID: 4587755865488967872}
+  uiTextB: {fileID: 0}
   emotionCooldown: 20
 --- !u!114 &7720522357811623223
 MonoBehaviour:
@@ -8454,6 +8535,7 @@ RectTransform:
   - {fileID: 1010575492876285550}
   - {fileID: 5084768287439910256}
   - {fileID: 1572265949148010650}
+  - {fileID: 4312038866696757426}
   m_Father: {fileID: 2334290795754761891}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
