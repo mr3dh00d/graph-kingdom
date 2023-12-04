@@ -225,7 +225,7 @@ public class DialogController {
             "Estoy aquí para ayudarte a aprender sobre un algoritmo muy importante: Dijkstra\n¡Vamos a empezar!",//1
             "Primero, debo saber tu nombre",//2
             "Para poder decirme tu nombre debes usar la casilla de instrucciones",//3
-            "La casilla de instrucciones sirve para comunicarte conmigo, y decirme que hacer, comenzaremos con que me diags tu nombre",//4
+            "La casilla de instrucciones sirve para comunicarte conmigo, y decirme que hacer, comenzaremos con que me digas tu nombre",//4
             "Para decirme tu nombre debes de escribir en el recuadro de abajo:\n\"name nombre\"\n(Por ejemplo, si tu nombre es Juan, debes escribir \"name Juan\")"//5
         };
     }

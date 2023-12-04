@@ -103,7 +103,7 @@ public class APIController {
 
     public void SaveRecord() {
         GameController.instance.IniciarRutina(SaveRecordCoroutine("data_vgg", GameController.instance.emotions.vggLabel.text, float.Parse(GameController.instance.emotions.brightnessLabel.text)));
-        GameController.instance.IniciarRutina(SaveRecordCoroutine("data_fernet", GameController.instance.emotions.fetnetLabel.text, -1f));
+        GameController.instance.IniciarRutina(SaveRecordCoroutine("data_fernet", GameController.instance.emotions.fernetLabel.text, -1f));
     }
 
     private IEnumerator SaveRecordCoroutine(string collectionName, string emotion, float brillo_calculado) {
