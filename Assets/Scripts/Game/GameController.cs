@@ -151,6 +151,7 @@ public class GameController : MonoBehaviour
             string username = args[0];
             apiController.SearchUser(username);
             inputField.text = "";
+            isTyping = false;
             return;
         }
         switch (command.ToLower())
@@ -189,6 +190,7 @@ public class GameController : MonoBehaviour
                 break;
         }
         inputField.text = "";
+        isTyping = false;
     }
 
     private void Help(string[] args)
