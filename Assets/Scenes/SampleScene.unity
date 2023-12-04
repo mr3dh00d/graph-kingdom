@@ -8957,7 +8957,7 @@ MonoBehaviour:
   pathsLabelsController:
     pathsLabels: {fileID: 1161406798}
   emotions:
-    fetnetLabel: {fileID: 1881831020}
+    fernetLabel: {fileID: 1881831020}
     vggLabel: {fileID: 721167151}
     brightnessLabel: {fileID: 452559930}
   DragMovementActive: 1
@@ -8969,6 +8969,7 @@ MonoBehaviour:
   - {fileID: 907859066}
   cities: {fileID: 1354749952}
   isCompiling: 0
+  isTyping: 0
   sessionId: 
 --- !u!4 &1096415077
 Transform:
@@ -15519,7 +15520,7 @@ PrefabInstance:
     - target: {fileID: 10074493597747608, guid: fdc48ed2f50f2f048b64649aef1e0b68, type: 3}
       propertyPath: modelFile
       value: 
-      objectReference: {fileID: 5022602860645237092, guid: 32e71935ae9db3f4abb727398e587d19, type: 3}
+      objectReference: {fileID: 5022602860645237092, guid: 4019b55029b020949a4bcc42924ce981, type: 3}
     - target: {fileID: 1306239215473286824, guid: fdc48ed2f50f2f048b64649aef1e0b68, type: 3}
       propertyPath: m_Name
       value: Dialog
@@ -15588,10 +15589,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: TextRed1
       objectReference: {fileID: 0}
-    - target: {fileID: 7930012782577582898, guid: fdc48ed2f50f2f048b64649aef1e0b68, type: 3}
-      propertyPath: modelFile
-      value: 
-      objectReference: {fileID: 5022602860645237092, guid: 180814cd81af7f94d9f60a90fbd28058, type: 3}
     - target: {fileID: 8439167017293663268, guid: fdc48ed2f50f2f048b64649aef1e0b68, type: 3}
       propertyPath: m_IsActive
       value: 1
