@@ -659,6 +659,7 @@ GameObject:
   - component: {fileID: 8539391297772471868}
   - component: {fileID: 5743257887663149712}
   - component: {fileID: 4711607869232823250}
+  - component: {fileID: 6055510899535139039}
   m_Layer: 5
   m_Name: InputField (TMP)
   m_TagString: Untagged
@@ -823,6 +824,18 @@ MonoBehaviour:
   m_isRichTextEditingAllowed: 0
   m_LineLimit: 0
   m_InputValidator: {fileID: 0}
+--- !u!114 &6055510899535139039
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 730427928914751736}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 036002d26779ebd46b81103b4715b8d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &821062469107913632
 GameObject:
   m_ObjectHideFlags: 0
@@ -6901,7 +6914,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CameraView: {fileID: 7672921963515722150}
   preproc: {fileID: 864822400667818749}
-  modelFile: {fileID: 5022602860645237092, guid: 32e71935ae9db3f4abb727398e587d19, type: 3}
+  modelFile: {fileID: 5022602860645237092, guid: 4019b55029b020949a4bcc42924ce981, type: 3}
   uiText: {fileID: 8669643403953702322}
   CanvaTextB: {fileID: 5327922901943732954}
   emotionCooldown: 15
@@ -8218,9 +8231,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CameraView: {fileID: 7672921963515722150}
   preprocessII: {fileID: 7720522357811623223}
-  modelFile: {fileID: 5022602860645237092, guid: 180814cd81af7f94d9f60a90fbd28058, type: 3}
+  modelFile: {fileID: 5022602860645237092, guid: 086cf219fb5e83e4a8687f7b3c3c5c3a, type: 3}
   uiText: {fileID: 4587755865488967872}
-  uiTextB: {fileID: 0}
   emotionCooldown: 20
 --- !u!114 &7720522357811623223
 MonoBehaviour:

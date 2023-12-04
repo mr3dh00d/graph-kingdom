@@ -18,7 +18,7 @@ public class GameController : MonoBehaviour
     [SerializeField] public bool DragMovementActive = true;
     [SerializeField] public GameObject InputPanel;
     [SerializeField] public GameObject [] Merchants;
-    [SerializeField] public Cities cities; 
+    [SerializeField] public Cities cities;
     private APIController apiController;
     private City location;
     private City initialCity;
@@ -28,6 +28,7 @@ public class GameController : MonoBehaviour
     private int rutinasActivas = 0;
     private User user;
     private TMP_InputField inputField;
+    public bool isTyping = false;
     private int saveNodes = 0;
     public string sessionId;
     private Dijkstra dijkstra;
@@ -78,7 +79,9 @@ public class GameController : MonoBehaviour
             dialogController.skipDialog();
         }
         if(Input.GetKeyDown(KeyCode.E)) {
-            dialogController.buttonPress();
+            if(!isTyping){
+                dialogController.buttonPress();   
+            }
         }
     }
 
@@ -316,6 +319,7 @@ public class GameController : MonoBehaviour
 
     public IEnumerator CloseGame(){
         finish = true;
+        Application.OpenURL("https://forms.gle/EKWw2qzY8e7rvNkr7");
         yield return new WaitForSeconds(1.5f);
         Application.Quit();
     }
