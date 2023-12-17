@@ -64,7 +64,8 @@ public class APIController {
                 if(data.totalItems > 0) {
                     SearchUserItemResponse userData = data.items[0];
                     GameController.instance.setUser(userData.id, userData.username);
-                    GameController.instance.feedBackController.SetGoodMessage("Usuario enlazado correctamente");
+                    // GameController.instance.feedBackController.SetGoodMessage("Usuario enlazado correctamente");
+                    GameController.instance.feedBackController.SetGoodMessage("Nombre guardado correctamente");
                     GameController.instance.dialogController.showButton();
                 } else {
                     CreateUser(username);
@@ -95,7 +96,8 @@ public class APIController {
                 string responseData = www.downloadHandler.text;
                 CreateUserResponse data = JsonUtility.FromJson<CreateUserResponse>(responseData);
                 GameController.instance.setUser(data.id, data.username);
-                GameController.instance.feedBackController.SetGoodMessage("Usuario creado correctamente");
+                // GameController.instance.feedBackController.SetGoodMessage("Usuario creado correctamente");
+                GameController.instance.feedBackController.SetGoodMessage("Nombre guardado correctamente");
                 GameController.instance.dialogController.showButton();
             }
         }

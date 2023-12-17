@@ -221,7 +221,7 @@ public class DialogController {
 
     private void LoadStartDialogs() {
         dialogos = new List<string> {
-            $"Hola, soy Fernet, Rey de {GameController.instance.getInitialCity().getName()}", //0
+            $"Hola, soy Henry, Rey de {GameController.instance.getInitialCity().getName()}", //0
             "Estoy aquí para ayudarte a aprender sobre un algoritmo muy importante: Dijkstra\n¡Vamos a empezar!",//1
             "Primero, debo saber tu nombre",//2
             "Para poder decirme tu nombre debes usar la casilla de instrucciones",//3
